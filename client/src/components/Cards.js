@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './Cards.module.css'
 
 class Cards extends React.Component {
   state = {
@@ -27,7 +28,7 @@ class Cards extends React.Component {
         >
           Draw Deck
         </button>
-        <div >
+        <div className={styles.cardsContainer}>
           {
             this.state.cards.map(card => (
               <div key={card.code} value={card.value} id={card.code}>
