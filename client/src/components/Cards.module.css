@@ -4,3 +4,14 @@
   grid-gap: 10px;
   padding: 0 5vw;
 }
+
+.card:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.card {
+  z-index: 5;
+}
+
+
