@@ -1,4 +1,5 @@
 import React from 'react'
+import back from './back.png'
 import styles from './Cards.module.css'
 
 class Cards extends React.Component {
@@ -22,17 +23,27 @@ class Cards extends React.Component {
   }
 
   handleUserCardSelection = (event) => {
+    const currentCard = event.target.id
     const { userCard1 } = this.state
     console.log(event.target.value)
-    if (!userCard1) return this.setState({userCard1: event.target.id})
-    if (event.target.id.split("")[0] === userCard1.split("")[0]) {
+    if (!userCard1) return this.setState({userCard1: currentCard})
+    if (currentCard.split("")[0] === userCard1.split("")[0]) {
+      const toBeDeleted1 = document.getElementById(`${currentCard}`)
+      const toBeDeleted2 = document.getElementById(`${userCard1}`)
+      toBeDeleted1.classList.add('hidden')
+      toBeDeleted2.classList.add('hidden')
+      console.log(toBeDeleted1, toBeDeleted2)
       this.setState({ userCard1: '' })
       return window.alert("You got a match!")
     }
-    if (event.target.id.split("")[0] !== userCard1.split("")[0]) {
+    if (currentCard.split("")[0] !== userCard1.split("")[0]) {
       this.setState({ userCard1: '' })
       return window.alert("Not a Match")
     }
+  }
+
+  flipCards = () => {
+
   }
 
   render(){
@@ -59,6 +70,10 @@ class Cards extends React.Component {
               >
                 <img
                   src={card.image}
+                  alt={`${card.suit} ${card.value}`}
+                />
+                <img
+                  src={back}
                   alt={`${card.suit} ${card.value}`}
                 />
               </li>

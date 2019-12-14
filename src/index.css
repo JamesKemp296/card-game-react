@@ -7,3 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #3A7D02;
 }
+
+.hidden {
+  display: none;
+}
