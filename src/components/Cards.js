@@ -5,8 +5,7 @@ class Cards extends React.Component {
   state = {
     deckId: "",
     cards: [],
-    userCard1: "",
-    userCard2: ""
+    userCard1: ""
   }
 
   fetchCards = () => {
@@ -23,16 +22,17 @@ class Cards extends React.Component {
   }
 
   handleUserCardSelection = (event) => {
-    const { userCard1, userCard2 } = this.state
+    const { userCard1 } = this.state
     console.log(event.target.value)
     if (!userCard1) return this.setState({userCard1: event.target.id})
-    if (!userCard2 && event.target.id !== userCard1) return this.setState({userCard2: event.target.id})
-    if (userCard2 && userCard1.split("")[0] === userCard2.split("")[0]) return window.alert("You got a match!")
-    if (userCard2 && userCard1.split("")[0] !== userCard2.split("")[0]) {
-      this.setState({ userCard1: '', userCard2: '' })
+    if (event.target.id.split("")[0] === userCard1.split("")[0]) {
+      this.setState({ userCard1: '' })
+      return window.alert("You got a match!")
+    }
+    if (event.target.id.split("")[0] !== userCard1.split("")[0]) {
+      this.setState({ userCard1: '' })
       return window.alert("Not a Match")
     }
-    if (userCard1 && userCard2) return window.alert("Already holding 2 cards")
   }
 
   render(){
