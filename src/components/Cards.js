@@ -23,13 +23,16 @@ class Cards extends React.Component {
   }
 
   handleUserCardSelection = (event) => {
-    if (!this.state.userCard1){
-      this.setState({userCard1: event.target.id})
-    }else if (!this.state.userCard2){
-      this.setState({userCard2: event.target.id})
-    }else{
-      window.alert("Already holding 2 cards")
+    const { userCard1, userCard2 } = this.state
+    console.log(event.target.value)
+    if (!userCard1) return this.setState({userCard1: event.target.id})
+    if (!userCard2 && event.target.id !== userCard1) return this.setState({userCard2: event.target.id})
+    if (userCard2 && userCard1.split("")[0] === userCard2.split("")[0]) return window.alert("You got a match!")
+    if (userCard2 && userCard1.split("")[0] !== userCard2.split("")[0]) {
+      this.setState({ userCard1: '', userCard2: '' })
+      return window.alert("Not a Match")
     }
+    if (userCard1 && userCard2) return window.alert("Already holding 2 cards")
   }
 
   render(){
@@ -43,18 +46,22 @@ class Cards extends React.Component {
         <div className={styles.cardsContainer}>
           {
             this.state.cards.map(card => (
-              <div 
+              <li
+                href="#card"
                 className={styles.card}
-                key={card.code} 
-                value={card.value} 
+                key={card.code}
+                value={card.value}
                 id={card.code}
                 onClick={this.handleUserCardSelection}
+                style={{
+                  backgroundImage: `url(${card.image})`
+                }}
               >
-                <img 
-                  src={card.image} 
+                <img
+                  src={card.image}
                   alt={`${card.suit} ${card.value}`}
                 />
-              </div>
+              </li>
             ))
           }
         </div>
